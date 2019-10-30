@@ -1,26 +1,39 @@
 @import 'reset';
 
 
-.header {
-    height: 100vh;
-    width: 100%;
+.video-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 100vh;
+    width: 100vw;
     overflow: hidden;
-    .video-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    &__background {
+        z-index: -1;
         position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 1;
-        &__background {
-            height: auto;
-            width: 100%;
-        }
+        width: auto;
+        height: auto;
+        min-width: 100%;
+        min-height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .overlay {
+        position: absolute;
+        width: auto;
+        height: auto;
+        min-width: 100%;
+        min-height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    &__content {
+        position: relative;
+        color: white;
+        z-index: 2;
     }
 }
-
 @media (min-aspect-ratio: 16/9) {
     .video-container__background {
         width: 100%;

@@ -6,32 +6,48 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 
-.header {
-  height: 100vh;
-  width: 100%;
+.video-container {
   position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  overflow: hidden;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-.header .video-container {
+.video-container__background {
+  z-index: -1;
   position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
-.header .video-container__background {
+.video-container .overlay {
+  position: absolute;
+  width: auto;
   height: auto;
-  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.video-container__content {
+  position: relative;
+  color: white;
+  z-index: 2;
 }
 
 @media (min-aspect-ratio: 16 / 9) {
