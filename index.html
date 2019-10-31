@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <title>Licznik</title>
 </head>
@@ -16,8 +17,19 @@
             </video>
         </div>
         <div class="video-container__content">
-            <h1>Witaj na stronie</h1>
+            <div class="counter">
+                <p class="counter__time days">DD</p>
+                <p class="counter__time hours">HH</p>
+                <p class="counter__time minutes">MM</p>
+                <p class="counter__time seconds">SS</p>
+            </div>
+            <div class="destination-time">
+                <h1 class="destination-time__title">Data</h1>
+                <input id="time-input" class="destination-time__input" type="datetime-local" value="2019-12-15T20:00"
+                min="2000-01-01T00:00" max="2030-12-31T23:59">
+            </div>
         </div>
     </section>
+    <script src="main.js"></script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 @import 'reset';
+@import '_variables';
 
-
+body {
+    font-family: $main-font;
+}
 .video-container {
     position: relative;
     height: 100vh;
@@ -32,6 +35,40 @@
         position: relative;
         color: white;
         z-index: 2;
+    }
+}
+.counter {
+    padding: 10vh 50px;
+    &__time {
+        display: inline-block;
+        min-width: 100px;
+        min-height: 60px;
+        padding: 20px 5px;
+        border: dotted red 5px;
+        font-size: 36px;
+        font-weight: bold;
+        margin: 10px;
+        text-align: center;
+        line-height: 50px;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+.destination-time {
+    margin-top: 15vh;
+    &__title {
+        font-size: 24px;
+    }
+    &__input {
+        margin-top: 2vh;
+        font-size: 16px;
+        font-weight: bold;
+        min-width: 200px;
+        background-color: rgba(0, 0, 0, 0.05);
+        color: white;
+        border: 0;
+        &:focus {
+            outline: none;
+        }
     }
 }
 @media (min-aspect-ratio: 16/9) {

@@ -6,6 +6,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 
+body {
+  font-family: "Lato", sans-serif;
+}
+
 .video-container {
   position: relative;
   height: 100vh;
@@ -48,6 +52,46 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   position: relative;
   color: white;
   z-index: 2;
+}
+
+.counter {
+  padding: 10vh 50px;
+}
+
+.counter__time {
+  display: inline-block;
+  min-width: 100px;
+  min-height: 60px;
+  padding: 20px 5px;
+  border: dotted red 5px;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 10px;
+  text-align: center;
+  line-height: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.destination-time {
+  margin-top: 15vh;
+}
+
+.destination-time__title {
+  font-size: 24px;
+}
+
+.destination-time__input {
+  margin-top: 2vh;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 200px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: white;
+  border: 0;
+}
+
+.destination-time__input:focus {
+  outline: none;
 }
 
 @media (min-aspect-ratio: 16 / 9) {
