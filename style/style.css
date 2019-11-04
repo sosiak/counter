@@ -60,16 +60,30 @@ body {
 
 .counter__time {
   display: inline-block;
-  min-width: 100px;
+  min-width: 90px;
   min-height: 60px;
   padding: 20px 5px;
   border: dotted red 5px;
-  font-size: 36px;
+  font-size: 2.2em;
   font-weight: bold;
   margin: 10px;
   text-align: center;
-  line-height: 50px;
+  line-height: 1em;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.counter__time .unit {
+  font-size: 0.5em;
+}
+
+.counter__button {
+  padding: 20px 40px;
+  background-color: red;
+  color: white;
+  font-size: 3em;
+  border: 1px white inset;
+  border-radius: 20px;
+  letter-spacing: 5px;
 }
 
 .destination-time {
@@ -94,6 +108,17 @@ body {
   outline: none;
 }
 
+.destination-time__input--error {
+  border: dotted red 2px;
+}
+
+.destination-time__error {
+  color: red;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 0.1em;
+}
+
 @media (min-aspect-ratio: 16 / 9) {
   .video-container__background {
     width: 100%;
@@ -105,6 +130,36 @@ body {
   .video-container__background {
     width: auto;
     height: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .counter {
+    padding: 5vh 20px;
+  }
+  .counter__time {
+    min-width: 60px;
+    min-height: 40px;
+    padding: 15px 5px;
+    font-size: 1.6em;
+    line-height: .7em;
+    margin: 5px;
+  }
+  .destination-time {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .counter {
+    padding: 5vh 10px;
+  }
+  .counter__time {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 8px;
+    font-size: 1.2em;
+    margin: 3px;
   }
 }
 /*# sourceMappingURL=style.css.map */
