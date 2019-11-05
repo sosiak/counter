@@ -87,7 +87,13 @@ const validateInputDate = () => {
 const calculateTime = () => {
     if (error.textContent === ``) {
         let start = new Date().getTime();
-        let end = new Date(dateString).getTime();
+        let end;
+        if(is_safari) {
+            end = new Date(dateString).toUTCString.getTime();
+        }
+        else {
+            end = new Date(dateString).getTime();
+        }
         counter = end - start;
         let days = Math.floor(counter / 86400000);
         let hours = Math.floor((counter - (days * 86400000)) / 3600000);
