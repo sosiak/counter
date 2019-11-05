@@ -31,10 +31,15 @@ const createParagraphsCountTime = () => {
 // detect Safari
 let is_safari;
 const IsSafari = () => {
-    is_safari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
+    if (navigator.userAgent.includes('Safari')
+    && !navigator.userAgent.includes('Chrome')) {
+        is_safari=true;
+    } else {
+        is_safari=false;
+    }
     return is_safari;
 }
-
+IsSafari();
 // defaultValue
 let inputValueInString = inputDateValue.toLocaleString();
 let dateString;
