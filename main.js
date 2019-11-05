@@ -89,7 +89,7 @@ const calculateTime = () => {
         let start = new Date().getTime();
         let end;
         if(is_safari) {
-            end = new Date(dateString).toUTCString().getTime();
+            end = new Date(dateString).getTime()-3600000;
         }
         else {
             end = new Date(dateString).getTime();
