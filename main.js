@@ -28,14 +28,32 @@ const createParagraphsCountTime = () => {
         counterContainer.appendChild(createParagraph);
     }
 }
+// detect Safari
+let is_safari;
+const IsSafari = () => {
+    is_safari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
+    return is_safari;
+}
 
 // defaultValue
 let inputValueInString = inputDateValue.toLocaleString();
-let dateString = inputValueInString.substr(0, 10) + " " + inputValueInString.substr(11, 5) + ":00"
+let dateString;
+if(is_safari) {
+    dateString = inputValueInString.substr(0, 10) + "T" + inputValueInString.substr(11, 5) + ":00.000";
+}
+else {
+    dateString = inputValueInString.substr(0, 10) + " " + inputValueInString.substr(11, 5) + ":00";
+}
+
 
 
 const convertDateTime = () => {
-    dateString = inputValueInString.substr(0, 10) + " " + inputValueInString.substr(11, 5) + ":00";
+    if(is_safari) {
+        dateString = inputValueInString.substr(0, 10) + "T" + inputValueInString.substr(11, 5) + ":00.000";
+    }
+    else {
+        dateString = inputValueInString.substr(0, 10) + " " + inputValueInString.substr(11, 5) + ":00";
+    }
     return dateString;
 }
 const currentInputValue = () => {
