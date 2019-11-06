@@ -1,3 +1,84 @@
+//languages
+const plLang = [['dni', 'days'], ['dzień', 'day'], ['godz', 'h'], ['min.', 'min.'], ['sek.', 'sec.'], ['Data', 'Date'],
+ ['Błędna data', 'Incorrect date'], ['Oglądaj', 'Play'], ['Powrót', 'Back']]; 
+            
+
+let j =0;
+// createBody
+const videoContainer = document.createElement('header');
+videoContainer.className = 'video-container';
+document.body.appendChild(videoContainer);
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    videoContainer.appendChild(overlay);
+        const videoContainerBackground = document.createElement('video');
+        videoContainerBackground.className = 'video-container__background';
+        overlay.appendChild(videoContainerBackground);
+        const videoBackground = document.querySelector('.video-container__background');
+        videoBackground.setAttribute('poster', 'background-video.jpg');
+        videoBackground.setAttribute('muted', 'true');
+        videoBackground.setAttribute('autoplay', 'true');
+        videoBackground.setAttribute('loop', 'true');
+            const srcMP4 = document.createElement('source');
+            srcMP4.setAttribute('src', 'background-video.mp4');
+            srcMP4.setAttribute('type', 'video/mp4');
+            const srcWebm = document.createElement('source');
+            srcWebm.setAttribute('src', 'background-video.webm');
+            srcWebm.setAttribute('type', 'video/webm');
+            videoBackground.appendChild(srcMP4);
+            videoBackground.appendChild(srcWebm);
+    const videoContContent = document.createElement('div');
+    videoContContent.className = 'video-container__content';
+    videoContainer.appendChild(videoContContent);
+        const counterDiv = document.createElement('div');
+        counterDiv.className = 'counter';
+        videoContContent.appendChild(counterDiv);
+        const destinationTimeDiv = document.createElement('div');
+        destinationTimeDiv.className = 'destination-time';
+        videoContContent.appendChild(destinationTimeDiv);  
+            const headerInput = document.createElement('h1');
+            headerInput.className = 'destination-time__title';
+            setInterval(()=> {
+                headerInput.textContent = plLang[5][j];
+            },1000);
+            destinationTimeDiv.appendChild(headerInput);
+            const input = document.createElement('input');
+            input.setAttribute('id', 'time-input');
+            input.setAttribute('type','datetime-local');
+            input.setAttribute('value','2019-12-15T20:00:00');
+            input.setAttribute('min','2000-01-01T00:00');
+            input.setAttribute('max','2030-12-31T23:59');
+            input.className = 'destination-time__input';
+            destinationTimeDiv.appendChild(input);
+            const errorParagraph = document.createElement('p');
+            errorParagraph.className = 'destination-time__error';
+            destinationTimeDiv.appendChild(errorParagraph);
+        const config = document.createElement('div');
+        config.className = 'config';
+        videoContContent.appendChild(config);
+            const openClose = document.createElement('div');
+            openClose.className = 'config__open-close';
+            openClose.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            config.appendChild(openClose);
+            const redDiv = document.createElement('div');
+            redDiv.className = 'config__red';
+            config.appendChild(redDiv);
+            const greenDiv = document.createElement('div');
+            greenDiv.className = 'config__green';
+            config.appendChild(greenDiv);
+            const blueDiv = document.createElement('div');
+            blueDiv.className = 'config__blue';
+            config.appendChild(blueDiv);
+            const pl = document.createElement('div');
+            pl.className = 'config__language';
+            pl.textContent = 'PL';
+            config.appendChild(pl);
+            const en = document.createElement('div');
+            en.className = 'config__language';
+            en.textContent = 'EN';
+            config.appendChild(en);
+
+
 //
 const counterContainer = document.querySelector('.counter');
 const videoContainerContent = document.querySelector('.video-container__content');
@@ -74,7 +155,7 @@ currentInputValue();
 const validateInputDate = () => {
     let dateToValidate = new Date(inputDateValue);
     if (isNaN(dateToValidate.getTime())) {
-        error.textContent = `Błędna data`;
+        error.textContent = plLang[6][j];
         inputDate.classList.add('destination-time__input--error');
     } else {
         error.textContent = ``;
@@ -82,6 +163,8 @@ const validateInputDate = () => {
     }
 }
 
+let daysParagraph, hoursParagraph, minutesParagraph, secondsParagraph;
+let days, hours, minutes, seconds;
 
 
 const calculateTime = () => {
@@ -95,73 +178,64 @@ const calculateTime = () => {
             end = new Date(dateString).getTime();
         }
         counter = end - start;
-        let days = Math.floor(counter / 86400000);
-        let hours = Math.floor((counter - (days * 86400000)) / 3600000);
-        let minutes = Math.floor((counter - (days * 86400000) - (hours * 3600000)) / 60000);
-        let seconds = Math.floor((counter - (days * 86400000) - (hours * 3600000) - (minutes * 60000)) / 1000);
-
-        const daysParagraph = document.querySelector(".days");
-        const hoursParagraph = document.querySelector(".hours");
-        const minutesParagraph = document.querySelector(".minutes");
-        const secondsParagraph = document.querySelector(".seconds");
 
         // add values to htmlElements
-        if (days < 10 && days !== 1) {
+        if (days < 10 && days !== 1 && days>=0) {
             daysParagraph.textContent = `0${days}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'dni';
+            createUnitParagraph.textContent = plLang[0][j];
             daysParagraph.appendChild(createUnitParagraph);
-        } else if (days < 10 && days === 1) {
+        } else if (days < 10 && days === 1 && days>=0) {
             daysParagraph.textContent = `0${days}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'dzień';
+            createUnitParagraph.textContent = plLang[1][j];
             daysParagraph.appendChild(createUnitParagraph);
-        } else {
+        } else if (days>=10) {
             daysParagraph.textContent = `${days}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'dni';
+            createUnitParagraph.textContent = plLang[0][j];
             daysParagraph.appendChild(createUnitParagraph);
         }
-        if (hours < 10) {
+        if (hours < 10 && days >= 0) {
             hoursParagraph.textContent = `0${hours}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'godz.';
+            createUnitParagraph.textContent = plLang[2][j];
             hoursParagraph.appendChild(createUnitParagraph);
-        } else {
+        } else if(days >= 0) {
             hoursParagraph.textContent = `${hours}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'godz.';
+            createUnitParagraph.textContent = plLang[2][j];
             hoursParagraph.appendChild(createUnitParagraph);
         }
-        if (minutes < 10) {
+        if (minutes < 10 && days>=0) {
             minutesParagraph.textContent = `0${minutes}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'min.';
+            createUnitParagraph.textContent = plLang[3][j];
             minutesParagraph.appendChild(createUnitParagraph);
-        } else {
+        } else if(days >= 0) {
             minutesParagraph.textContent = `${minutes}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'min.';
+            createUnitParagraph.textContent = plLang[3][j];
             minutesParagraph.appendChild(createUnitParagraph);
         }
-        if (seconds < 10) {
+        if (seconds < 10 && days>=0) {
             secondsParagraph.textContent = `0${seconds}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'sek.';
+            createUnitParagraph.textContent = plLang[4][j];
             secondsParagraph.appendChild(createUnitParagraph);
-        } else {
+        } else if(days>=0) {
             secondsParagraph.textContent = `${seconds}`;
             const createUnitParagraph = document.createElement('p');
             createUnitParagraph.className = 'unit';
-            createUnitParagraph.textContent = 'sek.';
+            createUnitParagraph.textContent = plLang[4][j];
             secondsParagraph.appendChild(createUnitParagraph);
         }
     } else {
@@ -173,16 +247,20 @@ const calculateTime = () => {
 }
 
 // let idInterval = setInterval(calculateTime, 1000);
-let counter = 1;
+let counter;
 let flag = true;
 let idInterval;
+let button;
 setInterval(() => {
     if (counter < 0) {
         if (flag === false) {
             const allParagraphs = document.querySelectorAll('.counter__time');
             const buttonWatch = document.createElement('button');
             buttonWatch.className = 'counter__button';
-            buttonWatch.textContent = 'Oglądaj';
+            buttonWatch.textContent = plLang[7][j];
+            setInterval(()=> {
+                buttonWatch.textContent = plLang[7][j];
+            },1000);
             allParagraphs.forEach((e) => {
                 counterContainer.removeChild(e);
             })
@@ -190,18 +268,128 @@ setInterval(() => {
             buttonWatch.addEventListener('click', () => {
                 videoContainerContent.removeChild(counterContainer);
                 videoContainerContent.removeChild(destinationTime);
-                videoContainerContent.textContent = 'Za chwilę zaczynamy...';
+                const backButton = document.createElement('button');
+                backButton.className = 'counter__button';
+                backButton.textContent = plLang[8][j];
+                setInterval(()=> {
+                    backButton.textContent = plLang[8][j];
+                },200);
+                videoContainerContent.appendChild(backButton);
+                backButton.addEventListener("click", ()=> {
+                    window.location = 'localhost:8080';
+                })
             });
-            flag = true;
-            clearInterval(idInterval);
+            // clearInterval(idInterval);
         }
+        flag = true;
     } else {
         if (flag === true) {
-            createParagraphsCountTime();
+            button = document.querySelector('button');
+            if(button === null) {
+                createParagraphsCountTime();
+            }
+            else {
+                counterContainer.removeChild(button);
+                createParagraphsCountTime();
+            }
             idInterval = setInterval(calculateTime, 1000);
         }
         flag = false;
     }
+        days = Math.floor(counter / 86400000);
+        hours = Math.floor((counter - (days * 86400000)) / 3600000);
+        minutes = Math.floor((counter - (days * 86400000) - (hours * 3600000)) / 60000);
+        seconds = Math.floor((counter - (days * 86400000) - (hours * 3600000) - (minutes * 60000)) / 1000);
+        daysParagraph = document.querySelector(".days");
+        hoursParagraph = document.querySelector(".hours");
+        minutesParagraph = document.querySelector(".minutes");
+        secondsParagraph = document.querySelector(".seconds");
 }, 1000);
 
-const button = document.querySelector('button');
+//themes
+const leftRightArrow = document.querySelector('i');
+let flagRotation = true;
+leftRightArrow.addEventListener("click", ()=> {
+    if(flagRotation===true) {
+        leftRightArrow.style.transform = 'rotate(180deg) translate(-20px, 0)';
+        flagRotation = false;
+        config.style.transform = 'translate(-250px, 0)';
+    }
+    else {
+        leftRightArrow.style.transform = 'rotate(0deg) translate(0, 0)';
+        config.style.transform = 'translate(0, 0)';
+        flagRotation = true;
+    }
+});
+redDiv.addEventListener("click", ()=> {
+    const mainRed = 'rgb(255,0,0)';
+    const bgRed = 'rgba(255,0,0,0.4)';
+    config.style.backgroundColor = `${bgRed}`;
+    leftRightArrow.style.color = `${mainRed}`;
+    const allParagraphs = document.querySelectorAll('.counter__time');
+    allParagraphs.forEach((e)=> {
+        e.style.border = `dotted ${mainRed} 5px`;
+        e.style.backgroundColor = `${bgRed}`;
+    })
+    const allLanguageBtn = document.querySelectorAll('.config__language');
+    allLanguageBtn.forEach((e)=> {
+        e.style.border = `solid ${mainRed} 1px`;
+        e.style.backgroundColor = `${bgRed}`;
+    })
+    const button = document.querySelector('.counter__button');
+    if(button!==null) {
+        button.style.backgroundColor = `${mainRed}`;
+    }
+})
+greenDiv.addEventListener("click", ()=> {
+    const mainGreen = 'rgb(0,255,0)';
+    const bgGreen = 'rgba(0,255,0,0.4)';
+    config.style.backgroundColor = `${bgGreen}`;
+    leftRightArrow.style.color = `${mainGreen}`;
+    const allParagraphs = document.querySelectorAll('.counter__time');
+    allParagraphs.forEach((e)=> {
+        e.style.border = `dotted ${mainGreen} 5px`;
+        e.style.backgroundColor = `${bgGreen}`;
+    })
+    const allLanguageBtn = document.querySelectorAll('.config__language');
+    allLanguageBtn.forEach((e)=> {
+        e.style.border = `solid ${mainGreen} 1px`;
+        e.style.backgroundColor = `${bgGreen}`;
+    })
+    const button = document.querySelector('.counter__button');
+    if(button!==null) {
+        button.style.backgroundColor = `${mainGreen}`;
+    }
+})
+blueDiv.addEventListener("click", ()=> {
+    const mainBlue = 'rgb(0,0,255)';
+    const bgBlue = 'rgba(0,0,255,0.4)';
+    config.style.backgroundColor = `${bgBlue}`;
+    leftRightArrow.style.color = `${mainBlue}`;
+    const allParagraphs = document.querySelectorAll('.counter__time');
+    allParagraphs.forEach((e)=> {
+        e.style.border = `dotted ${mainBlue} 5px`;
+        e.style.backgroundColor = `${bgBlue}`;
+    })
+    const allLanguageBtn = document.querySelectorAll('.config__language');
+    allLanguageBtn.forEach((e)=> {
+        e.style.border = `solid ${mainBlue} 1px`;
+        e.style.backgroundColor = `${bgBlue}`;
+    })
+    const button = document.querySelector('.counter__button');
+    if(button!==null) {
+        button.style.backgroundColor = `${mainBlue}`;
+    }
+})
+
+//change language
+pl.addEventListener("click", ()=> {
+    j=0;
+    return j;
+})
+en.addEventListener("click", ()=> {
+    j=1;
+    return j;
+})
+
+

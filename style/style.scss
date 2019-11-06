@@ -11,7 +11,6 @@ body {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     &__background {
         z-index: -1;
         position: absolute;
@@ -32,9 +31,75 @@ body {
         background-color: rgba(0, 0, 0, 0.6);
     }
     &__content {
-        position: relative;
         color: white;
         z-index: 2;
+    }
+}
+.config {
+    background-color: $red-bg;
+    min-height: 400px;
+    min-width: 250px;
+    border-radius: 8px;
+    position: absolute;
+    right: -250px;
+    bottom: 0;
+    transition: 2s;
+    &__open-close {
+        position: relative;
+        top: 175px;
+        left: -20px;
+        width: 40px;
+        height: 40px;
+        .fa-chevron-left {
+            font-size: 30px;
+            color: $red;
+            transition: 1s;
+        }
+    }
+    &__red {
+        width: 40px;
+        height: 40px;
+        background: red;
+        margin: 15px 5px;
+        display: inline-block;
+        &:hover {
+            cursor: pointer;
+        }        
+    }
+    &__green {
+        width: 40px;
+        height: 40px;
+        background: green;
+        margin: 15px 5px;
+        display: inline-block;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__blue {
+        width: 40px;
+        height: 40px;
+        background: blue;
+        margin: 15px 5px;
+        display: inline-block;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__language{
+        width: 40px;
+        height: 40px;
+        color: white;
+        text-align: center;
+        font-size: 1em;
+        line-height: 2em;
+        padding: 5px 10px;
+        margin-left: 30px;
+        border: solid $red 1px;
+        background-color: $red-bg;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 .counter {
@@ -44,22 +109,23 @@ body {
         min-width: 90px;
         min-height: 60px;
         padding: 20px 5px;
-        border: dotted red 5px;
+        border: dotted $red 5px;
         font-size: 2.2em;
         font-weight: bold;
         margin: 10px;
         text-align: center;
         line-height: 1em;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: $red-bg;
+        transition: 2s;
         .unit {
             font-size: 0.5em;
         }
     }
     &__button {
-        padding: 20px 40px;
-        background-color: red;
+        padding: 15px 30px;
+        background-color: $red;
         color: white;
-        font-size: 3em;
+        font-size: 1.5em;
         border: 1px white inset;
         border-radius: 20px;
         letter-spacing: 5px;        
@@ -83,10 +149,10 @@ body {
         }
     }
     &__input--error {
-        border: dotted red 2px;
+        border: dotted $red 2px;
     }
     &__error {
-        color: red;
+        color: $red;
         font-size: 1.1em;
         font-weight: bold;
         margin-top: 0.1em;
