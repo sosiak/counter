@@ -44,16 +44,15 @@ body {
     background-color: $red-bg;
     transition: 2s;
     &__element {
-        min-height: 100px;
         &__time {
             display: inline-block;
-            min-width: 30px;
+            min-width: 25px;
             min-height: 20px;
-            padding: 5px;
+            padding: 3px;
             border: dotted $red 5px;
             font-size: 1em;
             font-weight: bold;
-            margin: 10px;
+            margin: 2px;
             text-align: center;
             line-height: 1em;
             background-color: $red-bg;

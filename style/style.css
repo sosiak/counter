@@ -61,19 +61,15 @@ body {
   transition: 2s;
 }
 
-.list-watches__element {
-  min-height: 100px;
-}
-
 .list-watches__element__time {
   display: inline-block;
-  min-width: 30px;
+  min-width: 25px;
   min-height: 20px;
-  padding: 5px;
+  padding: 3px;
   border: dotted red 5px;
   font-size: 1em;
   font-weight: bold;
-  margin: 10px;
+  margin: 2px;
   text-align: center;
   line-height: 1em;
   background-color: rgba(255, 0, 0, 0.3);

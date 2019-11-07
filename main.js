@@ -11,7 +11,6 @@ const plLang = [
     ['Powrót', 'Back']
 ];
 
-
 let j = 0;
 // createBody
 const videoContainer = document.createElement('header');
@@ -102,7 +101,6 @@ const en = document.createElement('div');
 en.className = 'config__language';
 en.textContent = 'EN';
 config.appendChild(en);
-
 
 //
 const counterContainer = document.querySelector('.counter');
@@ -289,22 +287,24 @@ setInterval(() => {
             buttonWatch.addEventListener('click', () => {
                 videoContainerContent.removeChild(counterContainer);
                 videoContainerContent.removeChild(destinationTime);
+                const backAnchor = document.createElement('a');
+                backAnchor.setAttribute('href', 'index.html');
                 const backButton = document.createElement('button');
                 backButton.className = 'counter__button';
                 backButton.textContent = plLang[8][j];
                 setInterval(() => {
                     backButton.textContent = plLang[8][j];
                 }, 200);
-                videoContainerContent.appendChild(backButton);
-                backButton.addEventListener("click", () => {
-                    window.location = 'localhost:8080';
-                })
+                backAnchor.appendChild(backButton);
+                videoContainerContent.appendChild(backAnchor);
             });
+            destinationTimeDiv.removeChild(addBtn);
         }
         flag = true;
     } else {
         if (flag === true) {
             button = document.querySelector('.btn-watch');
+            destinationTimeDiv.appendChild(addBtn);
             if (button === null) {
                 createParagraphsCountTime();
             } else {
@@ -324,6 +324,207 @@ setInterval(() => {
     minutesParagraph = document.querySelector(".minutes");
     secondsParagraph = document.querySelector(".seconds");
 }, 1000);
+
+
+
+//change language
+pl.addEventListener("click", () => {
+    j = 0;
+    return j;
+})
+en.addEventListener("click", () => {
+    j = 1;
+    return j;
+})
+
+
+let counters = [];
+
+const calculateToListItem = () => {
+    let start = new Date().getTime();
+    let end;
+    if (is_safari) {
+        end = new Date(dateString).getTime() - 3600000;
+    } else {
+        end = new Date(dateString).getTime();
+    }
+    return counterElement = end - start;
+
+
+}
+let uniID = 0;
+addBtn.addEventListener("click", () => {
+    calculateToListItem();
+    uniID++;
+    console.log(uniID);
+    let initialValue = counterElement;
+    let countersLen = counters.length;
+    let days = Math.floor(initialValue / 86400000);
+    let hours = Math.floor((initialValue - (days * 86400000)) / 3600000);
+    let minutes = Math.floor((initialValue - (days * 86400000) - (hours * 3600000)) / 60000);
+    let seconds = Math.floor((initialValue - (days * 86400000) - (hours * 3600000) - (minutes * 60000)) / 1000);
+
+    let newCounter = {
+        valueInMiliseconds: initialValue,
+        valueInDays: Math.floor(initialValue / 86400000),
+        valueInHours: Math.floor((initialValue - (days * 86400000)) / 3600000),
+        valueInMinutes: Math.floor((initialValue - (days * 86400000) - (hours * 3600000)) / 60000),
+        valueInSeconds: Math.floor((initialValue - (days * 86400000) - (hours * 3600000) - (minutes * 60000)) / 1000),
+        elementID: `counter-${uniID}`,
+        IDDays: `counter-${uniID}-days`,
+        IDHours: `counter-${uniID}-hours`,
+        IDMinutes: `counter-${uniID}-minutes`,
+        IDSeconds: `counter-${uniID}-seconds`,
+        IDBtn: `counter-${uniID}-button`,
+        removeButton: function () {
+            const removeItem = document.getElementById(newCounter.elementID);
+            listWatches.removeChild(removeItem);
+        },
+    };
+    counters.push(newCounter);
+
+
+    let listWatches = document.querySelector('.list-watches');
+    let newTimer = document.createElement('div');
+    newTimer.id = newCounter.elementID;
+    newTimer.className = 'list-watches__element';
+    listWatches.appendChild(newTimer);
+    let newDays = document.createElement('div');
+    newDays.className = `list-watches__element__time`;
+    newDays.id = newCounter.IDDays;
+    let newHours = document.createElement('div');
+    newHours.className = `list-watches__element__time`;
+    newHours.id = newCounter.IDHours;
+    let newMinutes = document.createElement('div');
+    newMinutes.className = `list-watches__element__time`;
+    newMinutes.id = newCounter.IDMinutes;
+    let newSeconds = document.createElement('div');
+    newSeconds.className = `list-watches__element__time`;
+    newSeconds.id = newCounter.IDSeconds;
+    let removeButton = document.createElement('button');
+    removeButton.className = 'list-watches__element__remove-button';
+    removeButton.id = newCounter.IDBtn;
+    removeButton.textContent = 'X';
+    newTimer.appendChild(newDays);
+    newTimer.appendChild(newHours);
+    newTimer.appendChild(newMinutes);
+    newTimer.appendChild(newSeconds);
+    newTimer.appendChild(removeButton);
+
+    // console.log(counterElement);
+    removeButton.addEventListener('click', newCounter.removeButton);
+    removeButton.addEventListener('click', (e) => {
+        console.log(e.target.id);
+        for (let o = 0; o < counters.length; o++) {
+            if (counters[o].IDBtn === e.target.id) {
+                counters.splice(o, 1);
+            }
+        }
+    })
+})
+
+setInterval(function () {
+    for (let p = 0; p < counters.length; p++) {
+        counters[p].valueInMiliseconds -= 1000;
+
+        counters[p].valueInDays = Math.floor(counters[p].valueInMiliseconds / 86400000);
+        counters[p].valueInHours = Math.floor((counters[p].valueInMiliseconds - (counters[p].valueInDays * 86400000)) / 3600000);
+        counters[p].valueInMinutes = Math.floor((counters[p].valueInMiliseconds - (counters[p].valueInDays * 86400000) - (counters[p].valueInHours * 3600000)) / 60000);
+        counters[p].valueInSeconds = Math.floor((counters[p].valueInMiliseconds - (counters[p].valueInDays * 86400000) - (counters[p].valueInHours * 3600000) - (counters[p].valueInMinutes * 60000)) / 1000);
+
+        let elId = counters[p].elementID;
+        let elIdDays = counters[p].IDDays;
+        let elIdHours = counters[p].IDHours;
+        let elIdMinutes = counters[p].IDMinutes;
+        let elIdSeconds = counters[p].IDSeconds;
+        let elementDays = document.getElementById(elIdDays);
+        let elementHours = document.getElementById(elIdHours);
+        let elementMinutes = document.getElementById(elIdMinutes);
+        let elementSeconds = document.getElementById(elIdSeconds);
+        if (counters[p].valueInMiliseconds < 0) {
+            const zeroElement = document.getElementById(counters[p].elementID);
+            zeroElement.style.transition = '1.2s';
+            zeroElement.style.transform = 'rotate(720deg)';
+            elementDays.textContent = 0;
+            elementHours.textContent = 0;
+            elementMinutes.textContent = 0;
+            elementSeconds.textContent = 0;
+        } else {
+            elementDays.textContent = counters[p].valueInDays;
+            elementHours.textContent = counters[p].valueInHours;
+            elementMinutes.textContent = counters[p].valueInMinutes;
+            elementSeconds.textContent = counters[p].valueInSeconds;
+        }
+
+    }
+}, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //themes
 const leftRightArrow = document.querySelector('i');
@@ -364,9 +565,11 @@ redDiv.addEventListener("click", () => {
     if (button !== null) {
         button.style.backgroundColor = `${mainRed}`;
     }
-    const btnRemove = document.querySelector('.list-watches__element__remove-button');
-    if (button !== null) {
-        btnRemove.style.backgroundColor = `${mainRed}`;
+    const btnRemove = document.querySelectorAll('.list-watches__element__remove-button');
+    if (btnRemove !== null) {
+        btnRemove.forEach((e) => {
+            e.style.backgroundColor = `${mainRed}`;
+        })
     }
 })
 greenDiv.addEventListener("click", () => {
@@ -394,9 +597,11 @@ greenDiv.addEventListener("click", () => {
     if (button !== null) {
         button.style.backgroundColor = `${mainGreen}`;
     }
-    const btnRemove = document.querySelector('.list-watches__element__remove-button');
-    if (button !== null) {
-        btnRemove.style.backgroundColor = `${mainGreen}`;
+    const btnRemove = document.querySelectorAll('.list-watches__element__remove-button');
+    if (btnRemove !== null) {
+        btnRemove.forEach((e) => {
+            e.style.backgroundColor = `${mainGreen}`;
+        })
     }
 })
 blueDiv.addEventListener("click", () => {
@@ -424,87 +629,10 @@ blueDiv.addEventListener("click", () => {
     if (button !== null) {
         button.style.backgroundColor = `${mainBlue}`;
     }
-    const btnRemove = document.querySelector('.list-watches__element__remove-button');
-    if (button !== null) {
-        btnRemove.style.backgroundColor = `${mainBlue}`;
+    const btnRemove = document.querySelectorAll('.list-watches__element__remove-button');
+    if (btnRemove !== null) {
+        btnRemove.forEach((e) => {
+            e.style.backgroundColor = `${mainBlue}`;
+        })
     }
 })
-
-//change language
-pl.addEventListener("click", () => {
-    j = 0;
-    return j;
-})
-en.addEventListener("click", () => {
-    j = 1;
-    return j;
-})
-let index = 0;
-const createListCountTime = () => {
-    const createDivElement = document.createElement('div');
-    createDivElement.className = `list-watches__element-$`;
-    listWatches.appendChild(createDivElement);
-    for (let i = 1; i <= 4; i++) {
-        const createListElementParagraph = document.createElement('p');
-        createListElementParagraph.textContent = ``;
-        switch (i) {
-            case 1:
-                createListElementParagraph.className = `list-watches__element__time days-elements-${index}`;
-                break;
-            case 2:
-                createListElementParagraph.className = `list-watches__element__time hours-elements-${index}`;
-                break;
-            case 3:
-                createListElementParagraph.className = `list-watches__element__time minutes-elements-${index}`;
-                break;
-            case 4:
-                createListElementParagraph.className = `list-watches__element__time seconds-elements-${index}`;
-                break;
-        }
-        createDivElement.appendChild(createListElementParagraph);
-    }
-    createButtonRemove = document.createElement('button');
-    createButtonRemove.className = 'list-watches__element__remove-button';
-    createButtonRemove.textContent = 'X';
-    createDivElement.appendChild(createButtonRemove);
-
-}
-let counterElement;
-let daysParagraphElement, hoursParagraphElement, minutesParagraphElement, secondsParagraphElement;
-let daysElement, hoursElement, minutesElement, secondsElement;
-const calculateToListItem = () => {
-    let start = new Date().getTime();
-    let end;
-    if (is_safari) {
-        end = new Date(dateString).getTime() - 3600000;
-    } else {
-        end = new Date(dateString).getTime();
-    }
-    counterElement = end - start;
-    console.log(counterElement);
-    convertToDaysHoursMinutesSeconds();
-
-}
-
-convertToDaysHoursMinutesSeconds = () => {
-    daysElement = Math.floor(counterElement / 86400000);
-    hoursElement = Math.floor((counterElement - (daysElement * 86400000)) / 3600000);
-    minutesElement = Math.floor((counterElement - (daysElement * 86400000) - (hoursElement * 3600000)) / 60000);
-    secondsElement = Math.floor((counterElement - (daysElement * 86400000) - (hoursElement * 3600000) - (minutesElement * 60000)) / 1000);
-    daysParagraphElement = document.querySelector(`.days-elements-${index}`);
-    hoursParagraphElement = document.querySelector(`.hours-elements-${index}`);
-    minutesParagraphElement = document.querySelector(`.minutes-elements-${index}`);
-    secondsParagraphElement = document.querySelector(`.seconds-elements-${index}`);
-    daysParagraphElement.textContent = daysElement;
-    hoursParagraphElement.textContent = hoursElement;
-    minutesParagraphElement.textContent = minutesElement;
-    secondsParagraphElement.textContent = secondsElement;
-}
-const addListElement = () => {
-    createListCountTime();
-    calculateToListItem();
-    index++;
-}
-
-addBtn.addEventListener("click", addListElement);
-

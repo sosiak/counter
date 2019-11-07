@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="counters">
+
+    </div>
+
+    <input type="text" id="initial-value" />
+
+    <button type="button" onclick="addCounter()">
+        Add counter
+    </button>
+</body>
+
+<script type="text/javascript">
+    var counters = [];
+
+    function addCounter() {
+        var initialValue = document.getElementById('initial-value').value;
+        var countersLen = counters.length;
+
+        var newCounter = {
+            value: initialValue,
+            elId: 'counter-' + countersLen,
+        };
+
+        counters.push(newCounter);
+
+        var elCounters = document.getElementById('counters');
+        var newEl = document.createElement('div');
+
+        newEl.id = newCounter.elId;
+        newEl.innerText = newCounter.value;
+
+        elCounters.appendChild(newEl);
+
+        document.getElementById('initial-value').value = '';
+    }
+
+    setInterval(function () {
+        for (var i = 0; i < counters.length; i++) {
+            counters[i].value++;
+
+            var elId = counters[i].elId;
+            var elCounter = document.getElementById(elId);
+
+            elCounter.innerText = counters[i].value;
+        }
+    }, 1000);
+</script>
+
+</html>
