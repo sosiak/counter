@@ -50,6 +50,53 @@ body {
   z-index: 2;
 }
 
+.list-watches {
+  min-width: 250px;
+  min-height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 0, 0, 0.3);
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+
+.list-watches__element {
+  min-height: 100px;
+}
+
+.list-watches__element__time {
+  display: inline-block;
+  min-width: 30px;
+  min-height: 20px;
+  padding: 5px;
+  border: dotted red 5px;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 10px;
+  text-align: center;
+  line-height: 1em;
+  background-color: rgba(255, 0, 0, 0.3);
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+
+.list-watches__element__time .unit {
+  font-size: 0.5em;
+}
+
+.list-watches__element__remove-button {
+  padding: 5px 5px 5px 10px;
+  background-color: red;
+  color: white;
+  font-size: 1.2em;
+  border: 1px white inset;
+  border-radius: 20px;
+  letter-spacing: 5px;
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+
 .config {
   background-color: rgba(255, 0, 0, 0.3);
   min-height: 400px;
@@ -136,8 +183,8 @@ body {
 
 .counter__time {
   display: inline-block;
-  min-width: 90px;
-  min-height: 60px;
+  min-width: 80px;
+  min-height: 50px;
   padding: 20px 5px;
   border: dotted red 5px;
   font-size: 2.2em;
