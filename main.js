@@ -270,7 +270,7 @@ let counter;
 let flag = true;
 let idInterval;
 let button;
-setInterval(() => {
+const bigInterval = ()=> {setInterval(() => {
     if (counter < 0) {
         if (flag === false) {
             const allParagraphs = document.querySelectorAll('.counter__time');
@@ -288,7 +288,7 @@ setInterval(() => {
                 videoContainerContent.removeChild(counterContainer);
                 videoContainerContent.removeChild(destinationTime);
                 const backAnchor = document.createElement('a');
-                backAnchor.setAttribute('href', 'index.html');
+                // backAnchor.setAttribute('href', 'index.html');
                 const backButton = document.createElement('button');
                 backButton.className = 'counter__button';
                 backButton.textContent = plLang[8][j];
@@ -297,6 +297,17 @@ setInterval(() => {
                 }, 200);
                 backAnchor.appendChild(backButton);
                 videoContainerContent.appendChild(backAnchor);
+                backAnchor.addEventListener('click', ()=> {
+                    videoContainerContent.removeChild(backAnchor);
+                    videoContContent.appendChild(counterDiv);
+                    counterDiv.removeChild(buttonWatch);
+                    videoContContent.appendChild(destinationTimeDiv);
+                    inputDate.value = "2019-12-15T20:00";
+                    dateString = "2019-12-15 20:00:00";
+                    currentInputValue();
+                    calculateTime();
+                    bigInterval();
+                })
             });
             destinationTimeDiv.removeChild(addBtn);
         }
@@ -324,7 +335,8 @@ setInterval(() => {
     minutesParagraph = document.querySelector(".minutes");
     secondsParagraph = document.querySelector(".seconds");
 }, 1000);
-
+}
+bigInterval();
 
 
 //change language
