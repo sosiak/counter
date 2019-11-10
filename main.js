@@ -16,12 +16,13 @@ createHeader('destination-time', 'destination-time__title', lang[5][j]);
 createDateInputWithErrorDiv('destination-time', 'destination-time__input', 'time-input', '2019-12-15T20:00:00', 'destination-time__error');
 createButton('destination-time', 'counter__button btn-add', '+');
 createDiv('video-container__content', 'list-watches');
-createParagraphsCountTime('counter');
+createParagraphsCountTime('counter', 'counter__time days', 'counter__time hours', 'counter__time minutes', 'counter__time seconds');
 IsSafari();
-let defaultMainInput = defaultInputValue('time-input');
-let currentValueInString = convertDefaultInputValue(defaultMainInput); // convert default value
+let inputValueInString = defaultInputValue('time-input');
+let currentValueInString = convertDefaultInputValue(inputValueInString); // convert default value
 const checkInput = document.getElementById(`time-input`);
-console.log(currentValueInString);
+let calculatorValue = calculateToListItem(currentValueInString);
+
 let bigCalculate = () => {
     // checkInput.addEventListener("change", () => {
     let inputDateValue = checkInput.value;
@@ -29,12 +30,17 @@ let bigCalculate = () => {
     let validateStatus = validateInputDate(inputDateValue, 'time-input', lang[6][j], 'destination-time__error');
     if (validateStatus === true) {
         currentValueInString = convertDateTime(inputValueInStringAfterChange);
-        console.log(currentValueInString);
-        return currentValueInString;
+        calculatorValue = calculateToListItem(currentValueInString);
+        return calculatorValue;
     }
 }
-convertValueInString = checkInput.addEventListener('change', bigCalculate); // modify default value
-let calculatorValue = calculateToListItem(bigCalculate);
+setInterval(() => {
+    calculatorValue = bigCalculate();
+    calculateToTimeValues(calculatorValue, 1000);
+}, 1000);
+currentValueInString = checkInput.addEventListener('change', bigCalculate); // modify default value
+// calculateToTimeValues(calculatorValue, 2000);
+// let calculatorValue = calculateToListItem(bigCalculate);
 
 
 // const counterContainer = document.querySelector('.counter');

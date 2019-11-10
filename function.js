@@ -86,23 +86,23 @@ const createDivWithText = (where, nameClass, text, id) => {
     const element = document.querySelector(`#${id}`);
     element.textContent = text;
 }
-const createParagraphsCountTime = (where) => {
+const createParagraphsCountTime = (where, nameClassDays, nameClassHours, nameClassMinutes, nameClassSeconds) => {
     const counterContainer = document.querySelector(`.${where}`);
     for (let i = 1; i <= 4; i++) {
         const createParagraph = document.createElement('p');
         createParagraph.textContent = ``;
         switch (i) {
             case 1:
-                createParagraph.className = `counter__time days`;
+                createParagraph.className = `${nameClassDays}`;
                 break;
             case 2:
-                createParagraph.className = `counter__time hours`;
+                createParagraph.className = `${nameClassHours}`;
                 break;
             case 3:
-                createParagraph.className = `counter__time minutes`;
+                createParagraph.className = `${nameClassMinutes}`;
                 break;
             case 4:
-                createParagraph.className = `counter__time seconds`;
+                createParagraph.className = `${nameClassSeconds}`;
                 break;
         }
         counterContainer.appendChild(createParagraph);
@@ -175,7 +175,16 @@ const calculateToListItem = (endValue) => {
     let counterElement = end - start;
     return counterElement;
 }
-
+const calculateToTimeValues = (value, time) => {
+    let values = {
+        days: Math.floor(value / 86400000),
+        hours: Math.floor((value - (Math.floor(value / 86400000) * 86400000)) / 3600000),
+        minutes: Math.floor((value - (Math.floor(value / 86400000) * 86400000) - (Math.floor((value - (Math.floor(value / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000),
+        seconds: Math.floor((value - (Math.floor(value / 86400000) * 86400000) - (Math.floor((value - (Math.floor(value / 86400000) * 86400000)) / 3600000) * 3600000) - (Math.floor((value - (Math.floor(value / 86400000) * 86400000) - (Math.floor((value - (Math.floor(value / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) * 60000)) / 1000),
+    }
+    console.log(`${values.days} ${values.hours} ${values.minutes} ${values.seconds}`);
+    value -= time;
+}
 
 
 
