@@ -120,38 +120,32 @@ const IsSafari = () => {
 }
 
 // defaultValue
-const defaultInputValue = (from) => {
+const defaultInputValue = function (from) {
     const inputDate = document.getElementById(`${from}`);
     let inputDateValue = inputDate.value;
-    return inputValueInString = inputDateValue.toLocaleString();
+    let inputValueInString = inputDateValue.toLocaleString();
+    return inputValueInString;
 }
-const convertDefaultInputValue = (value) => {
+const convertDefaultInputValue = function (value) {
     if (is_safari) {
-        return dateString = value.substr(0, 10) + "T" + value.substr(11, 5) + ":00.000";
+        let currentValueInString = value.substr(0, 10) + "T" + value.substr(11, 5) + ":00.000";
+        return currentValueInString;
     } else {
-        return dateString = value.substr(0, 10) + " " + value.substr(11, 5) + ":00";
+        let currentValueInString = value.substr(0, 10) + " " + value.substr(11, 5) + ":00";
+        return currentValueInString;
     }
 }
 
 
-const convertDateTime = () => {
+const convertDateTime = (value) => {
     if (is_safari) {
-        dateString = inputValueInString.substr(0, 10) + "T" + inputValueInString.substr(11, 5) + ":00.000";
+        return dateStringChange = value.substr(0, 10) + "T" + value.substr(11, 5) + ":00.000";
     } else {
-        dateString = inputValueInString.substr(0, 10) + " " + inputValueInString.substr(11, 5) + ":00";
+        return dateStringChange = value.substr(0, 10) + " " + value.substr(11, 5) + ":00";
     }
-    return dateString;
 
 }
-const currentInputValue = (input, errDiv) => {
-    const checkInput = document.getElementById(`${input}`);
-    checkInput.addEventListener("change", () => {
-        inputDateValue = checkInput.value;
-        inputValueInString = inputDateValue.toLocaleString();
-        validateInputDate(inputDateValue, input, lang[6][j], errDiv);
-        convertDateTime();
-    });
-}
+
 
 const validateInputDate = (from, checkedInput, errorText, errorDiv) => {
     let dateToValidate = new Date(from);
@@ -160,21 +154,26 @@ const validateInputDate = (from, checkedInput, errorText, errorDiv) => {
     if (isNaN(dateToValidate.getTime())) {
         errDiv.textContent = errorText;
         target.classList.add('destination-time__input--error');
+        let validateStatus = false;
+        return validateStatus;
     } else {
         errDiv.textContent = ``;
         target.classList.remove('destination-time__input--error');
+        let validateStatus = true;
+        return validateStatus;
     }
 }
 
-const calculateToListItem = () => {
+const calculateToListItem = (endValue) => {
     let start = new Date().getTime();
     let end;
     if (is_safari) {
-        end = new Date(dateString).getTime() - 3600000;
+        end = new Date(endValue).getTime() - 3600000;
     } else {
-        end = new Date(dateString).getTime();
+        end = new Date(endValue).getTime();
     }
-    return counterElement = end - start;
+    let counterElement = end - start;
+    return counterElement;
 }
 
 
