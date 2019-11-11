@@ -5,26 +5,34 @@ container('video-container', 'video-container__content');
 createDiv('video-container__content', 'config');
 createDiv('config', 'config__open-close');
 const openCloseIcon = document.querySelector('.config__open-close').innerHTML = '<i class="fas fa-chevron-left"></i>';
-createDiv('config', 'config__red');
-createDiv('config', 'config__green');
-createDiv('config', 'config__blue');
+createDiv('config', 'config__red color');
+createDiv('config', 'config__green color');
+createDiv('config', 'config__blue color');
 createDivWithText('config', 'config__language', 'PL', 'pl');
 createDivWithText('config', 'config__language', 'EN', 'en');
+chooseLang();
 createDiv('video-container__content', 'counter');
 createDiv('video-container__content', 'destination-time');
 createHeader('destination-time', 'destination-time__title', lang[5][j]);
 createDateInputWithErrorDiv('destination-time', 'destination-time__input', 'time-input', '2019-12-15T20:00:00', 'destination-time__error');
 createButton('destination-time', 'counter__button btn-add', '+');
 createDiv('video-container__content', 'list-watches');
-createParagraphsCountTime('counter', 'counter__time days', 'counter__time hours', 'counter__time minutes', 'counter__time seconds');
 IsSafari();
+openClose();
+chooseColor();
+const colors = document.querySelectorAll('.color');
+for (let i = 0; i < colors.length; i++) {
+    let colorK = changeTheme(k);
+    colors[i].addEventListener('click', colorK);
+}
+
+
 let inputValueInString = defaultInputValue('time-input');
 let currentValueInString = convertDefaultInputValue(inputValueInString); // convert default value
-const checkInput = document.getElementById(`time-input`);
 let calculatorValue = calculateToListItem(currentValueInString);
 
+const checkInput = document.getElementById(`time-input`);
 let bigCalculate = () => {
-    // checkInput.addEventListener("change", () => {
     let inputDateValue = checkInput.value;
     let inputValueInStringAfterChange = inputDateValue.toLocaleString();
     let validateStatus = validateInputDate(inputDateValue, 'time-input', lang[6][j], 'destination-time__error');
@@ -32,30 +40,45 @@ let bigCalculate = () => {
         currentValueInString = convertDateTime(inputValueInStringAfterChange);
         calculatorValue = calculateToListItem(currentValueInString);
         return calculatorValue;
+    } else {
+        let flagValidation = false;
+        return flagValidation;
     }
 }
-setInterval(() => {
-    calculatorValue = bigCalculate();
-    calculateToTimeValues(calculatorValue, 1000);
-}, 1000);
+
+intervalBigCalculator(1000);
 currentValueInString = checkInput.addEventListener('change', bigCalculate); // modify default value
-// calculateToTimeValues(calculatorValue, 2000);
-// let calculatorValue = calculateToListItem(bigCalculate);
+
+//smallWatches
+
+let counters = [];
+let uniID = 0;
+
+let addBtn = document.querySelector('.btn-add');
+addBtn.addEventListener('click', addBtnListener);
+
+smallInterval(2000);
 
 
-// const counterContainer = document.querySelector('.counter');
-// const videoContainerContent = document.querySelector('.video-container__content');
-// const destinationTime = document.querySelector('.destination-time');
-// const error = document.querySelector('.destination-time__error');
+const plDiv = document.getElementById('pl');
+const enDiv = document.getElementById('en');
 
 
+plDiv.addEventListener('click', () => {
+    const buttonWatch = document.querySelector('.btn-watch');
+    updateTextInDiv('.destination-time__title', lang[5][j]);
+    if (buttonWatch !== null) {
+        updateTextInDiv('.btn-watch', lang[7][j]);
+    }
+});
+enDiv.addEventListener('click', () => {
+    const buttonWatch = document.querySelector('.btn-watch');
+    updateTextInDiv('.destination-time__title', lang[5][j]);
+    if (buttonWatch !== null) {
+        updateTextInDiv('.btn-watch', lang[7][j]);
+    }
+})
 
-
-
-
-
-let daysParagraph, hoursParagraph, minutesParagraph, secondsParagraph;
-let days, hours, minutes, seconds;
 
 
 
@@ -74,9 +97,9 @@ let days, hours, minutes, seconds;
 //                 setInterval(() => {
 //                     buttonWatch.textContent = plLang[7][j];
 //                 }, 1000);
-//                 allParagraphs.forEach((e) => {
-//                     counterContainer.removeChild(e);
-//                 })
+// allParagraphs.forEach((e) => {
+//     counterContainer.removeChild(e);
+// })
 //                 counterContainer.appendChild(buttonWatch);
 //                 buttonWatch.addEventListener('click', () => {
 //                     videoContainerContent.removeChild(counterContainer);
@@ -133,15 +156,7 @@ let days, hours, minutes, seconds;
 // bigInterval();
 
 
-// //change language
-// pl.addEventListener("click", () => {
-//     j = 0;
-//     return j;
-// })
-// en.addEventListener("click", () => {
-//     j = 1;
-//     return j;
-// })
+
 
 
 // let counters = [];
@@ -165,18 +180,18 @@ let days, hours, minutes, seconds;
 //         valueInHours: Math.floor((initialValue - (days * 86400000)) / 3600000),
 //         valueInMinutes: Math.floor((initialValue - (days * 86400000) - (hours * 3600000)) / 60000),
 //         valueInSeconds: Math.floor((initialValue - (days * 86400000) - (hours * 3600000) - (minutes * 60000)) / 1000),
-//         elementID: `counter-${uniID}`,
-//         IDDays: `counter-${uniID}-days`,
-//         IDHours: `counter-${uniID}-hours`,
-//         IDMinutes: `counter-${uniID}-minutes`,
-//         IDSeconds: `counter-${uniID}-seconds`,
-//         IDBtn: `counter-${uniID}-button`,
-//         removeButton: function () {
-//             const removeItem = document.getElementById(newCounter.elementID);
-//             listWatches.removeChild(removeItem);
-//         },
-//     };
-//     counters.push(newCounter);
+// elementID: `counter-${uniID}`,
+//     IDDays: `counter-${uniID}-days`,
+//     IDHours: `counter-${uniID}-hours`,
+//     IDMinutes: `counter-${uniID}-minutes`,
+//     IDSeconds: `counter-${uniID}-seconds`,
+//     IDBtn: `counter-${uniID}-button`,
+//     removeButton: function () {
+//         const removeItem = document.getElementById(newCounter.elementID);
+//         listWatches.removeChild(removeItem);
+//     },
+// };
+// counters.push(newCounter);
 
 
 //     let listWatches = document.querySelector('.list-watches');
@@ -238,14 +253,14 @@ let days, hours, minutes, seconds;
 //     }
 
 
-//     removeButton.addEventListener('click', newCounter.removeButton);
-//     removeButton.addEventListener('click', (e) => {
-//         for (let o = 0; o < counters.length; o++) {
-//             if (counters[o].IDBtn === e.target.id) {
-//                 counters.splice(o, 1);
-//             }
+// removeButton.addEventListener('click', newCounter.removeButton);
+// removeButton.addEventListener('click', (e) => {
+//     for (let o = 0; o < counters.length; o++) {
+//         if (counters[o].IDBtn === e.target.id) {
+//             counters.splice(o, 1);
 //         }
-//     })
+//     }
+// })
 // })
 
 // setInterval(function () {
@@ -353,19 +368,7 @@ let days, hours, minutes, seconds;
 
 
 // //themes
-// const leftRightArrow = document.querySelector('i');
-// let flagRotation = true;
-// leftRightArrow.addEventListener("click", () => {
-//     if (flagRotation === true) {
-//         leftRightArrow.style.transform = 'rotate(180deg) translate(-20px, 0)';
-//         flagRotation = false;
-//         config.style.transform = 'translate(-250px, 0)';
-//     } else {
-//         leftRightArrow.style.transform = 'rotate(0deg) translate(0, 0)';
-//         config.style.transform = 'translate(0, 0)';
-//         flagRotation = true;
-//     }
-// });
+
 // redDiv.addEventListener("click", () => {
 //     activeColor = 0;
 //     const mainRed = 'rgb(255,0,0)';

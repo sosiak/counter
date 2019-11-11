@@ -99,7 +99,7 @@ body {
   min-width: 250px;
   border-radius: 8px;
   position: absolute;
-  right: 0;
+  right: -250px;
   bottom: 0;
   -webkit-transition: 2s;
   transition: 2s;
