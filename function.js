@@ -391,5 +391,5 @@ const chooseColor = () => {
     })
 }
 const changeTheme = (k) => {
-    console.log(k)
+    console.log(colorsValues[k][0]);
 }

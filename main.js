@@ -22,8 +22,9 @@ openClose();
 chooseColor();
 const colors = document.querySelectorAll('.color');
 for (let i = 0; i < colors.length; i++) {
-    let colorK = changeTheme(k);
-    colors[i].addEventListener('click', colorK);
+    colors[i].addEventListener('click', () => {
+        changeTheme(k);
+    });
 }
 
 
