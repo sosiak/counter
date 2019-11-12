@@ -11,12 +11,12 @@ const lang = [
     ['Powrót', 'Back']
 ];
 const colorsValues = [
-    ['rgb(255,0,0)', 'rgba(255,0,0,0.4)'],
-    ['rgb(0,255,0)', 'rgba(0,255,0,0.4)'],
-    ['rgb(0,0,255)', 'rgba(0,0,255,0.4)'],
+    ['#f00', 'rgba(255,0,0,0.4)'],
+    ['#0f0', 'rgba(0,255,0,0.4)'],
+    ['#00f', 'rgba(0,0,255,0.4)'],
 ];
-let j = 0;
-let k = 0;
+let j = 0; //lang index
+let k = 0; //colors index
 
 const content = (place, nameClass) => {
     const videoContainer = document.createElement('section');
@@ -101,7 +101,7 @@ const createDivWithText = (where, nameClass, text, id) => {
 const updateTextInDiv = (where, text) => {
     const target = document.querySelector(`${where}`);
     target.textContent = text;
-};
+}
 const createParagraphsCountTime = (where, nameClassDays, nameClassHours, nameClassMinutes, nameClassSeconds) => {
     const counterContainer = document.querySelector(`.${where}`);
     for (let i = 1; i <= 4; i++) {
@@ -141,7 +141,6 @@ const IsSafari = () => {
     }
     return is_safari;
 }
-
 // defaultValue
 const defaultInputValue = function (from) {
     const inputDate = document.getElementById(`${from}`);
@@ -202,7 +201,13 @@ const intervalBigCalculator = (time) => {
             if (paragraphs.length === 0) {
                 createParagraphsCountTime('counter', 'counter__time days', 'counter__time hours', 'counter__time minutes', 'counter__time seconds');
                 createButton('destination-time', 'counter__button btn-add', '+');
+                const allParagraphs = document.querySelectorAll('.counter__time');
+                allParagraphs.forEach((e) => {
+                    e.style.backgroundColor = `${colorsValues[k][1]}`;
+                    e.style.border = `dotted ${colorsValues[k][0]} 5px`;
+                })
                 let addBtn = document.querySelector('.btn-add');
+                addBtn.style.backgroundColor = `${colorsValues[k][0]}`;
                 addBtn.addEventListener('click', addBtnListener);
             }
             let value = calculateToTimeValues(calculatorValue, time);
@@ -214,6 +219,8 @@ const intervalBigCalculator = (time) => {
                 let btnWatch = document.querySelector('.btn-watch');
                 if (btnWatch === null) {
                     createButton('counter', 'counter__button btn-watch', lang[7][j]);
+                    const watchBtn = document.querySelector('.btn-watch');
+                    watchBtn.style.backgroundColor = `${colorsValues[k][0]}`;
                 }
             } else {
                 let btnWatch = document.querySelector('.btn-watch');
@@ -307,6 +314,14 @@ const addBtnListener = () => {
     createParagraphsCountTime(`list-watches__element${uniID}`, `list-watches__element__time days${uniID}`, `list-watches__element__time hours${uniID}`, `list-watches__element__time minutes${uniID}`, `list-watches__element__time seconds${uniID}`);
     createButton(`list-watches__element${uniID}`, `list-watches__element__remove-button remove-button${uniID}`, 'X');
     const removeButton = document.querySelector(`.remove-button${uniID}`);
+    const allSmallParagraphs = document.querySelectorAll('.list-watches__element__time');
+    //style
+    removeButton.style.backgroundColor = `${colorsValues[k][0]}`;
+    allSmallParagraphs.forEach((e) => {
+        e.style.backgroundColor = `${colorsValues[k][1]}`;
+        e.style.border = `dotted ${colorsValues[k][0]} 5px`;
+    })
+    //
     removeButton.id = `counter-${newCounter.elementID}-button`;
     removeButton.addEventListener('click', newCounter.removeButton);
     removeButton.addEventListener('click', (e) => {
@@ -345,7 +360,6 @@ const smallInterval = (time) => {
         }
     }, time);
 }
-
 //change language
 const chooseLang = () => {
     pl.addEventListener("click", () => {
@@ -390,6 +404,36 @@ const chooseColor = () => {
         return k;
     })
 }
-const changeTheme = (k) => {
-    console.log(colorsValues[k][0]);
+const changeTheme = (mainColor, bgColor) => {
+    const config = document.querySelector('.config');
+    const listWatches = document.querySelector('.list-watches');
+    const leftRightArrow = document.querySelector('.fas');
+    config.style.backgroundColor = `${bgColor}`;
+    listWatches.style.backgroundColor = `${bgColor}`;
+    leftRightArrow.style.color = `${mainColor}`;
+    const allParagraphs = document.querySelectorAll('.counter__time');
+    allParagraphs.forEach((e) => {
+        e.style.border = `dotted ${mainColor} 5px`;
+        e.style.backgroundColor = `${bgColor}`;
+    })
+    const allListElementsParagraphs = document.querySelectorAll('.list-watches__element__time');
+    allListElementsParagraphs.forEach((e) => {
+        e.style.border = `dotted ${mainColor} 5px`;
+        e.style.backgroundColor = `${bgColor}`;
+    })
+    const allLanguageBtn = document.querySelectorAll('.config__language');
+    allLanguageBtn.forEach((e) => {
+        e.style.border = `solid ${mainColor} 1px`;
+        e.style.backgroundColor = `${bgColor}`;
+    })
+    const button = document.querySelector('.counter__button');
+    if (button !== null) {
+        button.style.backgroundColor = `${mainColor}`;
+    }
+    const btnRemove = document.querySelectorAll('.list-watches__element__remove-button');
+    if (btnRemove !== null) {
+        btnRemove.forEach((e) => {
+            e.style.backgroundColor = `${mainColor}`;
+        })
+    }
 }
