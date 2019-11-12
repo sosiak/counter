@@ -23,12 +23,6 @@ const content = (place, nameClass) => {
     videoContainer.className = nameClass;
     place.appendChild(videoContainer);
 }
-const createOverlay = (place, nameClass) => {
-    const overlay = document.createElement('div');
-    overlay.className = nameClass;
-    const target = document.querySelector(`.${place}`);
-    target.appendChild(overlay);
-}
 const createVideoBackground = (target, nameClass, posterFile, videoFile) => {
     const videoBackground = document.createElement('video');
     videoBackground.className = nameClass
@@ -42,12 +36,6 @@ const createVideoBackground = (target, nameClass, posterFile, videoFile) => {
     videoBackground.appendChild(srcMP4);
     const place = document.querySelector(`.${target}`);
     place.appendChild(videoBackground);
-}
-const container = (target, nameClass) => {
-    const videoContContent = document.createElement('div');
-    videoContContent.className = `${nameClass}`;
-    const place = document.querySelector(`.${target}`);
-    place.appendChild(videoContContent);
 }
 const createDiv = (where, nameClass, id) => {
     const div = document.createElement('div');
@@ -101,6 +89,26 @@ const createDivWithText = (where, nameClass, text, id) => {
 const updateTextInDiv = (where, text) => {
     const target = document.querySelector(`${where}`);
     target.textContent = text;
+}
+const createConfig = (where) => {
+    createDiv("video-container__content", `${where}`);
+    createDiv(`${where}`, "config__open-close");
+    const openCloseIcon = (document.querySelector(".config__open-close").innerHTML =
+        '<i class="fas fa-chevron-left"></i>');
+    createDiv(`${where}`, "config__red color");
+    createDiv(`${where}`, "config__green color");
+    createDiv(`${where}`, "config__blue color");
+    createDivWithText(`${where}`, "config__language", "PL", "pl");
+    createDivWithText(`${where}`, "config__language", "EN", "en");
+    chooseLang();
+    openClose();
+    chooseColor();
+}
+createDestinationDiv = (whereDiv, classHeader, classInput, inputID, whereError, inputValue, classBtn) => {
+    createDiv("video-container__content", `${whereDiv}`);
+    createHeader(`${whereDiv}`, `${classHeader}`, lang[5][j]);
+    createDateInputWithErrorDiv(`${whereDiv}`, `${classInput}`, `${inputID}`, `${inputValue}`, `${whereError}`);
+    createButton(`${whereDiv}`, `${classBtn}`, "+");
 }
 const createParagraphsCountTime = (where, nameClassDays, nameClassHours, nameClassMinutes, nameClassSeconds) => {
     const counterContainer = document.querySelector(`.${where}`);
